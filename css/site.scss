@@ -1,0 +1,99 @@
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/css3";
+
+/* containers */
+.widget {
+    @include box-sizing(border-box);
+    float: left;
+    padding: 1em;
+    width: 31%;
+    margin-top: 1em;
+    border: 1px solid #333;
+    h4 {
+        margin: 0 0 1em 0;
+        font-weight: bold;
+    }
+}
+.widget + .widget {
+    margin-left: 3.5%;
+}
+
+/* examples */
+
+$foreground: #2099d5;
+$background: #c7e8f9;
+
+.tfr-widget {
+    padding: 0 1px;
+    width: 15em;
+	color: $foreground;
+    background-color: $background;
+	@include border-radius (5px);
+    a {
+        text-decoration: none;
+    }
+}
+
+.tfr-header {
+    padding: 8px 10px;
+    a {
+        font-size: 16px;
+    }
+    h3 {
+        padding: 0;
+        margin: 0 !important;
+        font-size: 13px !important;
+        line-height: 100% !important;
+    }
+}
+
+.tfr-header a,
+.tfr-footer a {
+    color: $foreground;
+}
+
+.tfr-user-image {
+	float: left;
+	margin: 0 0.3em 0.3em 0;
+	width: 31px;
+	height: 31px;
+}
+
+.tfr-container {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+    @include border-radius (5px);
+}
+
+.tfr-item {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    line-height: 120%;
+    border-bottom: 1px dotted #333;
+    color: #333;
+    a {
+        word-wrap: break-word;
+    }
+}
+.tfr-item:last-child {
+    border-bottom: 0;
+}
+
+.tfr-footer {
+    padding: 10px;
+    a {
+        text-align: right;
+    }
+}
+
+.tfr-conversation {
+    display: block;
+}
+
+.tfr-icon {
+    float: left;
+}

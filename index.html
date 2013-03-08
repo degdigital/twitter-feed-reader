@@ -4,28 +4,60 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="css/site.css" />
     </head>
     <body>
-        <div id="TwitterWidget"></div>
+        <div class="widget">
+            <h4>Default Plugin: Styled</h4>
+            <div id="TwitterWidget1"></div>
+        </div>
+        <div class="widget">
+            <h4>Default Plugin: Styled</h4>
+            <div id="TwitterWidget2"></div>
+        </div>
+        <div class="widget">
+            <h4>Default Plugin: Styled</h4>
+            <div id="TwitterWidget3"></div>
+        </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="jquery.twitterfeedreader.js"></script>
         <script>
-            $('#TwitterWidget').TwitterFeed({ 
+            $('#TwitterWidget1').TwitterFeed({ 
                 userName: 'degdigital', 
                 limit: 10,
                 feedLocation: 'data/twitter.json'
+            });
+
+            $('#TwitterWidget2').TwitterFeed({ 
+                userName: 'degdigital', 
+                limit: 5,
+                classPrefix: 'test',
+                feedLocation: 'data/twitter.json'
+            });
+
+            $('#TwitterWidget3').TwitterFeed({ 
+                userName: 'degdigital', 
+                limit: 5,
+                feedLocation: 'data/twitter.json',
+                userHeader: function(o, data){
+                    return "Customize the output using javascript templates";
+                },
+                listItemTemplate: function(o, data) {
+                    return '<li class="' + o.prefix + '-item ' + o.prefix + '-item-' + data.index + '">\n'
+                        +  '<span class="' + o.userName + '-text">' + data.text + '</span> '
+                        +  '</li>\n';
+                },
+                userFooter: function(o, data){
+                    return '<div class="' + o.classPrefix + '-footer">\n'
+                     + '<a class="' + o.classPrefix + '-conversation" href="https://twitter.com/' + o.userName + '">'
+                     + 'Customize the output using javascript templates</a></div>';
+                }
             });
         </script>
     </body>

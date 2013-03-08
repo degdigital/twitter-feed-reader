@@ -26,20 +26,20 @@
 					 + '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '">' + o.userName + '</a>' 
 					 + '</div>';
         	},
-        	userFooter : function(o) {
+        	listItemTemplate: function(o, data) {
+        		return '<li class="' + o.prefix + '-item ' + o.prefix + '-item-' + data.index + '">\n'
+					+  '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '" class="' + o.prefix + '-user-name">' + o.userName + '</a> '
+					+  '<span class="' + o.prefix + '-text">' + data.text + '</span> '
+					+  '<span class="' + o.prefix + '-date">' + data.date + '</span> '
+					+  '</li>\n';
+			},
+        	userFooter : function(o, data) {
         		return '<div class="' + o.classPrefix + '-footer">\n'
 					 + '<a href="https://twitter.com" target="_blank">'
 					 + '<img alt="' + o.userName + '" src="http://widgets.twimg.com/i/widget-bird.png" class="' + o.classPrefix + '-icon" /></a>'
 				     + '<a class="' + o.classPrefix + '-conversation" href="https://twitter.com/' + o.userName + '">'
 					 + 'Join the conversation</a></div>';
-        	},
-        	listItemTemplate: function(o, data) {
-        		return '<li class="' + o.prefix + '-item ' + o.prefix + '-item-' + data.index + '">\n'
-					+  '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '" class="' + o.prefix + '-user-name">' + o.userName + '</a> '
-					+  '<span class="' + o.userName + '-text">' + data.text + '</span> '
-					+  '<span class="' + o.userName + '-date">' + data.date + '</span> '
-					+  '</li>\n';
-			}
+        	}
         };
 
 	function Plugin(element, options) {
@@ -55,7 +55,9 @@
 	Plugin.prototype = {
 
 		init: function() {
-			$(this.element).append('<ul class="' + this.options.classPrefix + '-container"></ul>');
+			var $this = $(this.element);
+			$this.addClass(this.options.classPrefix + '-widget');
+			$this.append('<ul class="' + this.options.classPrefix + '-container"></ul>');
 			this.readStream(this.element, this.options);
 		},
 
@@ -122,23 +124,24 @@
 			}
 
 			function parseData(i, e) {
-				var date = new Date (e.created_at);
+				var dateCreated = new Date (e.created_at);
 
 				listItems += options.listItemTemplate(options, {
 					'index': i,
 					'text' : self.formatText(e.text),
-					'date' : self.formatDate(date)
+					'date' : self.formatDate(dateCreated)
 				});
 
 				if (i === 0) {
+					var commonData = {
+						'imagePath': e.user.profile_image_url,
+						'displayName': e.user.name
+					};
 					if (options.userHeader)
-						$container.before(options.userHeader(options, {
-							'imagePath': e.user.profile_image_url,
-							'displayName': e.user.name
-						}));
+						$container.before(options.userHeader(options, commonData));
 
 					if (options.userFooter)
-						$container.after(options.userFooter(options));
+						$container.after(options.userFooter(options, commonData));
 				}
 			}
 		}
