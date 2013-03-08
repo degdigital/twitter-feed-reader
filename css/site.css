@@ -63,34 +63,95 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/* line 5, site.scss */
+body {
+  font: 0.8em/110% Arial, sans-serif;
+}
+
+/* line 9, site.scss */
+h1 {
+  margin: 0.75em 1em;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 2;
+}
+
 /* containers */
-/* line 6, site.scss */
+/* line 17, site.scss */
 .widget {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  float: left;
+  *zoom: 1;
   padding: 1em;
-  width: 31%;
-  margin-top: 1em;
-  border: 1px solid #333333;
+  margin: 1em;
+  border: 3px solid #dedede;
+  background-color: #efefef;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
 }
-/* line 13, site.scss */
+/* line 38, ../../../Ruby/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+.widget:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 25, site.scss */
 .widget h4 {
+  padding-bottom: 0.5em;
   margin: 0 0 1em 0;
+  font-size: 1.3em;
   font-weight: bold;
+  line-height: 120%;
+  text-align: center;
+  color: #999;
+  border-bottom: 3px solid #999999;
+}
+/* line 35, site.scss */
+.widget .tfr-widget {
+  float: left;
 }
 
-/* line 18, site.scss */
-.widget + .widget {
-  margin-left: 3.5%;
+/* line 38, site.scss */
+.code {
+  margin: 0 0 1em 1em;
+  float: left;
+  border: 1px solid #cccccc;
+  background-color: #eee;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+/* line 44, site.scss */
+.code h4 {
+  padding: 1em;
+}
+
+/* line 47, site.scss */
+code {
+  display: block;
+  padding: 1em;
+  margin: 1em;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 /* examples */
-/* line 27, site.scss */
+/* line 60, site.scss */
 .tfr-widget {
+  display: block;
+  margin: 0 auto;
   padding: 0 1px;
-  width: 15em;
+  max-width: 15em;
   color: #2099d5;
   background-color: #c7e8f9;
   -webkit-border-radius: 5px;
@@ -99,34 +160,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 33, site.scss */
+/* line 68, site.scss */
 .tfr-widget a {
   text-decoration: none;
 }
 
-/* line 38, site.scss */
+/* line 71, site.scss */
 .tfr-header {
+  overflow: hidden;
+  *zoom: 1;
   padding: 8px 10px;
 }
-/* line 40, site.scss */
+/* line 74, site.scss */
 .tfr-header a {
-  font-size: 16px;
+  font-size: 1em;
 }
-/* line 43, site.scss */
+/* line 75, site.scss */
 .tfr-header h3 {
   padding: 0;
-  margin: 0 !important;
-  font-size: 13px !important;
-  line-height: 100% !important;
+  margin: 0;
+  font-size: 0.7em;
+  line-height: 100%;
 }
 
-/* line 52, site.scss */
+/* line 84, site.scss */
 .tfr-header a,
 .tfr-footer a {
   color: #2099d5;
 }
 
-/* line 56, site.scss */
+/* line 86, site.scss */
 .tfr-user-image {
   float: left;
   margin: 0 0.3em 0.3em 0;
@@ -134,10 +197,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 31px;
 }
 
-/* line 63, site.scss */
+/* line 93, site.scss */
 .tfr-container {
-  margin: 0;
-  padding: 0;
   list-style: none;
   background-color: #fff;
   -webkit-border-radius: 5px;
@@ -147,40 +208,42 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border-radius: 5px;
 }
 
-/* line 71, site.scss */
+/* line 99, site.scss */
 .tfr-item {
   list-style: none;
   padding: 10px;
-  margin: 0;
   line-height: 120%;
   border-bottom: 1px dotted #333333;
   color: #333;
 }
-/* line 78, site.scss */
+/* line 105, site.scss */
 .tfr-item a {
   word-wrap: break-word;
 }
-
-/* line 82, site.scss */
+/* line 106, site.scss */
+.tfr-item .tfr-user-name {
+  font-weight: bold;
+}
+/* line 107, site.scss */
 .tfr-item:last-child {
   border-bottom: 0;
 }
 
-/* line 86, site.scss */
+/* line 110, site.scss */
 .tfr-footer {
   padding: 10px;
 }
-/* line 88, site.scss */
+/* line 112, site.scss */
 .tfr-footer a {
   text-align: right;
 }
 
-/* line 93, site.scss */
+/* line 115, site.scss */
 .tfr-conversation {
   display: block;
 }
 
-/* line 97, site.scss */
+/* line 116, site.scss */
 .tfr-icon {
   float: left;
 }

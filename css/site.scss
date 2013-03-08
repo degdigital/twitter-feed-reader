@@ -2,21 +2,54 @@
 @import "compass/utilities";
 @import "compass/css3";
 
+body {
+    font: 0.8em/110% Arial, sans-serif;
+}
+
+h1 {
+    margin: 0.75em 1em;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 2;
+}
+
 /* containers */
 .widget {
     @include box-sizing(border-box);
-    float: left;
+    @include pie-clearfix;
     padding: 1em;
-    width: 31%;
-    margin-top: 1em;
-    border: 1px solid #333;
+    margin: 1em;
+    border: 3px solid #dedede;
+    background-color: #efefef;
+    @include border-radius(10px);
     h4 {
+        padding-bottom: 0.5em;
         margin: 0 0 1em 0;
+        font-size: 1.3em;
         font-weight: bold;
+        line-height: 120%;
+        text-align: center;
+        color: #999;
+        border-bottom: 3px solid #999;
     }
+    .tfr-widget { float: left; }
 }
-.widget + .widget {
-    margin-left: 3.5%;
+
+.code {
+    margin: 0 0 1em 1em;
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    @include border-radius(10px);
+    h4 { padding: 1em;}
+}
+
+code {
+    display: block;
+    padding: 1em;
+    margin: 1em;
+    @include border-radius(5px);
+    background-color: #fff;
 }
 
 /* examples */
@@ -25,33 +58,30 @@ $foreground: #2099d5;
 $background: #c7e8f9;
 
 .tfr-widget {
+    display: block;
+    margin: 0 auto;
     padding: 0 1px;
-    width: 15em;
+    max-width: 15em;
 	color: $foreground;
     background-color: $background;
 	@include border-radius (5px);
-    a {
-        text-decoration: none;
-    }
+    a { text-decoration: none; }
 }
 
 .tfr-header {
+    @include clearfix;
     padding: 8px 10px;
-    a {
-        font-size: 16px;
-    }
+    a { font-size: 1em; }
     h3 {
         padding: 0;
-        margin: 0 !important;
-        font-size: 13px !important;
-        line-height: 100% !important;
+        margin: 0;
+        font-size: 0.7em;
+        line-height: 100%;
     }
 }
 
 .tfr-header a,
-.tfr-footer a {
-    color: $foreground;
-}
+.tfr-footer a { color: $foreground; }
 
 .tfr-user-image {
 	float: left;
@@ -61,8 +91,6 @@ $background: #c7e8f9;
 }
 
 .tfr-container {
-    margin: 0;
-    padding: 0;
     list-style: none;
     background-color: #fff;
     @include border-radius (5px);
@@ -71,29 +99,18 @@ $background: #c7e8f9;
 .tfr-item {
     list-style: none;
     padding: 10px;
-    margin: 0;
     line-height: 120%;
     border-bottom: 1px dotted #333;
     color: #333;
-    a {
-        word-wrap: break-word;
-    }
-}
-.tfr-item:last-child {
-    border-bottom: 0;
+    a { word-wrap: break-word; }
+    .tfr-user-name { font-weight: bold; }
+    &:last-child { border-bottom: 0; }
 }
 
 .tfr-footer {
     padding: 10px;
-    a {
-        text-align: right;
-    }
+    a { text-align: right; }
 }
 
-.tfr-conversation {
-    display: block;
-}
-
-.tfr-icon {
-    float: left;
-}
+.tfr-conversation { display: block; }
+.tfr-icon { float: left; }
