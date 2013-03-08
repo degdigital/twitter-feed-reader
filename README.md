@@ -26,4 +26,4 @@ Defaults:
 * userFooter : true //Display the user footer
 * twitterLink : true //Display Twitter link and icon
 * footerText : "Join the conversation" //Text to display in footer (links to profile, requires userFooter)
-* LinksInNewWindow : true //Open Links in new window (target="_blank")
+* linksInNewWindow : true //Open Links in new window (target="_blank")
