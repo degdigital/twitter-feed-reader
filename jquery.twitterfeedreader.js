@@ -21,7 +21,7 @@
         	userFooter : true,
         	twitterLink : true,
         	footerText : "Join the conversation",
-        	LinksInNewWindow : true
+        	linksInNewWindow : true
         };
 
 	function Plugin(element, options) {
@@ -108,7 +108,7 @@
 								var footer = '<div class="' + options.classPrefix + '-footer">\n';
 								if (options.twitterLink) {
 									footer += '<a href="https://twitter.com" target="_blank">'
-										+ '<img alt="" src="http://widgets.twimg.com/i/widget-bird.png" /></a>'
+										+ '<img alt="" src="http://widgets.twimg.com/i/widget-bird.png" class="' + options.classPrefix + '-icon" /></a>'
 								}
 								footer += '<a class="' + options.classPrefix + '-conversation" href="https://twitter.com/' + options.userName + '">' + 
 									options.footerText + '</a></div>';
@@ -118,7 +118,7 @@
 					});
 					$container.append(listItems);
 
-					if (options.LinksInNewWindow) {
+					if (options.linksInNewWindow) {
 						$(el).find('a').attr('target', '_blank');
 					}
 
