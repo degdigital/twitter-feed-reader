@@ -3,6 +3,17 @@ twitter-feed-reader
 
 Jquery plugin to read a twitter feed (cached or non-callback) and display on page.
 
+---
+
+Usage:
+
+$('#TwitterWidget').TwitterFeed({
+  	userName: 'AccountName'
+		feedLocation: 'PathTo.json'
+	});
+  
+  ---
+
 Defaults:
 
   feedLocation: "user_timeline.json" //Path to json file
