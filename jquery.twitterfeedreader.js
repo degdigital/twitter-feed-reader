@@ -61,17 +61,22 @@
 
 		replaceURLWithHTMLLinks: function(text) {
 		    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+		    // $1 = url
 		    return text.replace(exp,"<a href='$1'>$1</a>"); 
 		},
 
 		replaceTwitterUserNameWithHTMLLinks: function(text) {
 			var exp = /(^|[^@\w])@(\w{1,15})\b/g;
-			return text.replace(exp, " <a href='http://twitter.com/$2'>@$2</a>");
+			// $1 = string before @
+			// $2 = string after @
+			return text.replace(exp, " $1<a href='http://twitter.com/$2'>@$2</a>");
 		},
 
 		replaceHashtagWithHTMLLinks: function(text) {
 			var exp = /(^|\s)#(\w+)/g;
-			return text.replace(exp, " <a href='http://twitter.com/search?q=%23$2'>#$2</a>");
+			// $1 = string before #
+			// $2 = string after #
+			return text.replace(exp, " $1<a href='http://twitter.com/search?q=%23$2'>#$2</a>");
 		},
 
 		formatText: function(text) {
@@ -79,6 +84,10 @@
 			text = this.replaceHashtagWithHTMLLinks(text);
 			text = this.replaceTwitterUserNameWithHTMLLinks(text);
 		    return text;
+		},
+
+		formatDate: function(date) {
+			return formattedDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 		},
 
 		readStream: function(el, options) {
@@ -113,16 +122,12 @@
 			}
 
 			function parseData(i, e) {
-				var date = new Date (e.created_at),
-					tweetText = e.text;
-
-				var formattedDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
-				var formattedText = self.formatText(tweetText);
+				var date = new Date (e.created_at);
 
 				listItems += options.listItemTemplate(options, {
 					'index': i,
-					'text' : formattedText,
-					'date' : formattedDate
+					'text' : self.formatText(e.text),
+					'date' : self.formatDate(date)
 				});
 
 				if (i === 0) {
