@@ -27,10 +27,10 @@
 					 + '</div>';
         	},
         	listItemTemplate: function(o, data) {
-        		return '<li class="' + o.prefix + '-item ' + o.prefix + '-item-' + data.index + '">\n'
-					+  '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '" class="' + o.prefix + '-user-name">' + o.userName + '</a> '
-					+  '<span class="' + o.prefix + '-text">' + data.text + '</span> '
-					+  '<span class="' + o.prefix + '-date">' + data.date + '</span> '
+        		return '<li class="' + o.classPrefix + '-item ' + o.classPrefix + '-item-' + data.index + '">\n'
+					+  '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '" class="' + o.classPrefix + '-user-name">' + o.userName + '</a> '
+					+  '<span class="' + o.classPrefix + '-text">' + data.text + '</span> '
+					+  '<span class="' + o.classPrefix + '-date">' + data.date + '</span> '
 					+  '</li>\n';
 			},
         	userFooter : function(o, data) {
