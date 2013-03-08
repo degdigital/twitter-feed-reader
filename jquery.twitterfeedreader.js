@@ -1,3 +1,12 @@
+/*
+* jQuery Twitter Feed Reader
+* http://github.com/degdigital/twitter-feed-reader
+* Version: 0.1 (3/8/13)
+* Dual licensed under the MIT and GPL licenses.
+* http://www.degdigital.com
+* Requires: jQuery v1.7
+*/
+
 ; (function ($, window, document, undefined) {
 
 	var pluginName = "TwitterFeed",
