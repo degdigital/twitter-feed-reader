@@ -1,7 +1,7 @@
 /*
 * jQuery Twitter Feed Reader
 * http://github.com/degdigital/twitter-feed-reader
-* Version: 0.1 (3/8/13)
+* Version: 0.1.1 (3/8/13)
 * Dual licensed under the MIT and GPL licenses.
 * http://www.degdigital.com
 * Requires: jQuery v1.7
@@ -16,12 +16,30 @@
         	userName: "twitter",
         	classPrefix: "tfr",
         	feedError: 'There was an error reading the Twitter Feed',
-        	userImage: true,
-        	userHeader : true,
-        	userFooter : true,
-        	twitterLink : true,
-        	footerText : "Join the conversation",
-        	linksInNewWindow : true
+        	linksInNewWindow : true,
+
+        	// Templates
+        	userHeader : function(o, data) {
+				return '<div class="' + o.classPrefix + '-header">\n'
+					 + '<img src="' + data.imagePath + '" alt="' + data.displayName + '" class="' + o.classPrefix + '-user-image" />'
+				     + '<h3>' + data.displayName + '</h3>\n'
+					 + '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '">' + o.userName + '</a>' 
+					 + '</div>';
+        	},
+        	userFooter : function(o) {
+        		return '<div class="' + o.classPrefix + '-footer">\n'
+					 + '<a href="https://twitter.com" target="_blank">'
+					 + '<img alt="' + o.userName + '" src="http://widgets.twimg.com/i/widget-bird.png" class="' + o.classPrefix + '-icon" /></a>'
+				     + '<a class="' + o.classPrefix + '-conversation" href="https://twitter.com/' + o.userName + '">'
+					 + 'Join the conversation</a></div>';
+        	},
+        	listItemTemplate: function(o, data) {
+        		return '<li class="' + o.prefix + '-item ' + o.prefix + '-item-' + data.index + '">\n'
+					+  '<a href="https://twitter.com/intent/user?screen_name=' + o.userName + '" class="' + o.prefix + '-user-name">' + o.userName + '</a> '
+					+  '<span class="' + o.userName + '-text">' + data.text + '</span> '
+					+  '<span class="' + o.userName + '-date">' + data.date + '</span> '
+					+  '</li>\n';
+			}
         };
 
 	function Plugin(element, options) {
@@ -56,6 +74,13 @@
 			return text.replace(exp, " <a href='http://twitter.com/search?q=%23$2'>#$2</a>");
 		},
 
+		formatText: function(text) {
+			text = this.replaceURLWithHTMLLinks(text);
+			text = this.replaceHashtagWithHTMLLinks(text);
+			text = this.replaceTwitterUserNameWithHTMLLinks(text);
+		    return text;
+		},
+
 		readStream: function(el, options) {
 			$.ajaxSetup ({
 				cache: false
@@ -69,64 +94,48 @@
 
 			$.ajax({
 				url: options.feedLocation,
-				success: function(data) {
-					if (options.limit > 0) {
-						data = data.slice(0, options.limit);
-					}
-					$(data).each(function(i, e){
-						var date = new Date (e.created_at),
-							formattedDate = "",
-							tweetText = e.text,
-							formattedText = "";
-
-						formattedDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
-						formattedText = self.replaceURLWithHTMLLinks(tweetText);
-						formattedText = self.replaceHashtagWithHTMLLinks(formattedText);
-						formattedText = self.replaceTwitterUserNameWithHTMLLinks(formattedText);
-
-						listItems += '<li class="' + options.classPrefix + '-item ' + options.classPrefix + '-item-' + i + '">\n'
-							+ '<a href="https://twitter.com/intent/user?screen_name=' + options.userName + '" class="' + options.classPrefix + '-user-name">'
-							+ options.userName + '</a> '
-							+ '<span class="' + options.userName + '-text">' + formattedText  + '</span> '
-							+ '<span class="' + options.userName + '-date">' + formattedDate + '</span> '
-							+ '</li>\n';
-
-						if (i === 0) {
-							if (options.userHeader) {
-								userLongName = e.user.name;
-								var header = '<div class="' + options.classPrefix + '-header">\n';
-								if (options.userImage) {
-									userImagePath = e.user.profile_image_url;
-									header += '<img src="' + userImagePath + '" alt="' + userLongName + '" class="' + options.classPrefix + '-user-image" />'
-								}
-								header += '<h3>' + userLongName + '</h3>\n'
-									+ '<a href="https://twitter.com/intent/user?screen_name=' + options.userName + '">' + options.userName + '</a>' 
-									+ '</div>'
-								$container.before(header);
-							}
-							if (options.userFooter) {
-								var footer = '<div class="' + options.classPrefix + '-footer">\n';
-								if (options.twitterLink) {
-									footer += '<a href="https://twitter.com" target="_blank">'
-										+ '<img alt="" src="http://widgets.twimg.com/i/widget-bird.png" class="' + options.classPrefix + '-icon" /></a>'
-								}
-								footer += '<a class="' + options.classPrefix + '-conversation" href="https://twitter.com/' + options.userName + '">' + 
-									options.footerText + '</a></div>';
-								$container.after(footer);
-							}
-						}
-					});
-					$container.append(listItems);
-
-					if (options.linksInNewWindow) {
-						$(el).find('a').attr('target', '_blank');
-					}
-
-				},
+				success: ajaxSuccess,
 				error: function() {
 					$container.html(options.feedError);
 				}
 			});
+
+			function ajaxSuccess(data) {
+				if (options.limit > 0)
+					data = data.slice(0, options.limit);
+
+				$(data).each(parseData);
+
+				$container.append(listItems);
+
+				if (options.linksInNewWindow)
+					$(el).find('a').attr('target', '_blank');
+			}
+
+			function parseData(i, e) {
+				var date = new Date (e.created_at),
+					tweetText = e.text;
+
+				var formattedDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+				var formattedText = self.formatText(tweetText);
+
+				listItems += options.listItemTemplate(options, {
+					'index': i,
+					'text' : formattedText,
+					'date' : formattedDate
+				});
+
+				if (i === 0) {
+					if (options.userHeader)
+						$container.before(options.userHeader(options, {
+							'imagePath': e.user.profile_image_url,
+							'displayName': e.user.name
+						}));
+
+					if (options.userFooter)
+						$container.after(options.userFooter(options));
+				}
+			}
 		}
 
 	};
