@@ -3,6 +3,8 @@ twitter-feed-reader
 
 Jquery plugin to read a twitter feed (cached or non-callback) and display on page.
 
+[http://degdigital.github.com/twitter-feed-reader/](http://degdigital.github.com/twitter-feed-reader/)
+
 ---
 
 Usage:
