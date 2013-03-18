@@ -18,12 +18,12 @@ $('#TwitterWidget').TwitterFeed({
 
 Defaults:
 ===
-* __feedLocation__ : "user_timeline.json" _//Path to json file
-* __limit__ : 5 _//Max number of items to display
-* __userName__ : "twitter" _//Name of twitter account
-* __classPrefix__ : "tfr" _//Class to add to elements for namespacing
-* __feedError__ : "There was an error reading the Twitter Feed" _//Error message when no AJAX fails
-* __linksInNewWindow__ : true _//Open Links in new window (target="_blank")
+* __feedLocation__ : "user_timeline.json" _//Path to json file_
+* __limit__ : 5 _//Max number of items to display_
+* __userName__ : "twitter" _//Name of twitter account_
+* __classPrefix__ : "tfr" _//Class to add to elements for namespacing_
+* __feedError__ : "There was an error reading the Twitter Feed" _//Error message when no AJAX fails_
+* __linksInNewWindow__ : true _//Open Links in new window (target="_blank")_
 
 Overrides:
 ===
